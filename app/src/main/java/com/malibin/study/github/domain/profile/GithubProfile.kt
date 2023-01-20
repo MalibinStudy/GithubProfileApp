@@ -3,7 +3,7 @@ package com.malibin.study.github.domain.profile
 
 data class GithubProfile(
     val id: Long,
-    val githubId: String,
+    val userName: String,
     val avatarUrl: Long,
     val name: String,
     val bio: String,

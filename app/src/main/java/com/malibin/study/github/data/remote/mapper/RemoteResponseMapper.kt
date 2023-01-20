@@ -5,7 +5,7 @@ import com.malibin.study.github.domain.profile.GithubProfile
 
 fun GithubProfileResponse.toGithubProfile(): GithubProfile = GithubProfile(
     id = this.id,
-    githubId = this.login,
+    userName = this.login,
     avatarUrl = this.avatarUrl,
     name = this.name.orEmpty(),
     bio = this.bio.orEmpty(),
