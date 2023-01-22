@@ -9,7 +9,7 @@ import com.malibin.study.github.data.local.entity.GithubProfileEntity
 interface GithubProfileDao {
 
     @Query("SELECT * FROM GithubProfileEntity WHERE userName = :userName")
-    suspend fun getGithubProfile(userName: String): GithubProfileEntity
+    suspend fun getGithubProfile(userName: String): GithubProfileEntity?
 
     @Insert
     suspend fun saveGithubProfile(githubProfileEntity: GithubProfileEntity)
