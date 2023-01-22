@@ -7,7 +7,7 @@ import com.malibin.study.github.data.local.source.LocalGithubProfileSource
 object LocalGithubProfileSourceInjector {
     private var instance: LocalGithubProfileSource? = null
 
-    fun providesRemoteGithubProfileSource(
+    fun providesLocalGithubProfileSource(
         context: Context
     ): LocalGithubProfileSource = synchronized(this) {
         instance ?: synchronized(this) {
