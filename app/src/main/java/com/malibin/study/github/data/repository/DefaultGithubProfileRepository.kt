@@ -15,10 +15,7 @@ class DefaultGithubProfileRepository(
         return when (localProfile.isSuccess) {
             true -> localProfile
             false -> remoteGithubProfileSource.getGithubProfile(userName)
+                .onSuccess { localGithubProfileSource.saveGithubProfile(it) }
         }
-    }
-
-    override suspend fun saveGithubProfile(githubProfile: GithubProfile): Result<Unit> {
-        return localGithubProfileSource.saveGithubProfile(githubProfile)
     }
 }

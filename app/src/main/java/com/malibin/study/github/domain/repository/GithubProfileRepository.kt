@@ -5,6 +5,4 @@ import com.malibin.study.github.domain.profile.GithubProfile
 interface GithubProfileRepository {
 
     suspend fun getGithubProfile(userName: String): Result<GithubProfile>
-
-    suspend fun saveGithubProfile(githubProfile: GithubProfile): Result<Unit>
 }
