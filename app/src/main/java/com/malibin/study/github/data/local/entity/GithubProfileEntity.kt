@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class GithubProfileEntity(
     @PrimaryKey val id: Long,
     val userName: String,
-    val avatarUrl: Long,
+    val avatarUrl: String,
     val name: String,
     val bio: String,
     val followersCount: Int,

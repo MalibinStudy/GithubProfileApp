@@ -6,16 +6,24 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.malibin.study.github.R
 import com.malibin.study.github.data.repository.injector.DefaultGithubProfileRepositoryInjector
+import com.malibin.study.github.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     private val mainViewModel: MainViewModel by viewModels { MainViewModelFactory(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+            .apply {
+                viewModel = mainViewModel
+                lifecycleOwner = this@MainActivity
+            }
+            .also { this.binding = it }
+        setContentView(binding.root)
     }
 }
 

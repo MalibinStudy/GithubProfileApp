@@ -10,7 +10,7 @@ import retrofit2.http.Path
 
 interface GithubService {
 
-    @GET("/users/{userName}/repos")
+    @GET("/users/{userName}")
     suspend fun getUserProfile(
         @Path("userName") userName: String,
     ): Response<GithubProfileResponse>
