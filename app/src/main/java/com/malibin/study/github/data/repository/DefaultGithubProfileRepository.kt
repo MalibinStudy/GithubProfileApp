@@ -18,4 +18,8 @@ class DefaultGithubProfileRepository(
                 .onSuccess { localGithubProfileSource.saveGithubProfile(it) }
         }
     }
+
+    override suspend fun saveGithubProfile(githubProfile: GithubProfile): Result<Unit> {
+        return localGithubProfileSource.saveGithubProfile(githubProfile)
+    }
 }
