@@ -1,13 +1,11 @@
 package com.malibin.study.github.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.malibin.study.github.domain.profile.GithubProfile
 import com.malibin.study.github.domain.repository.GithubProfileRepository
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -26,8 +24,7 @@ class MainViewModel(
     val isError: LiveData<Boolean> = _isError
 
     fun loadGithubProfile() {
-        Log.d("MalibinDebug", "d???")
-        viewModelScope.launch(excpetionCatcher()) {
+        viewModelScope.launch {
             _isLoading.value = true
 
             profileRepository.getGithubProfile(githubId.value.orEmpty())
@@ -38,9 +35,5 @@ class MainViewModel(
                 }
             _isLoading.value = false
         }
-    }
-
-    private fun excpetionCatcher() = CoroutineExceptionHandler { _, t ->
-        Log.d("MalibinDebug", t.stackTraceToString())
     }
 }
