@@ -33,25 +33,29 @@ internal class DefaultGithubProfileRepositoryTest {
     @Test
     fun `로컬에 유저 정보가 있음을 확인할 수 있다`() = runBlocking {
         // given
-        val expectedSearch = fakeLocalSource.getGithubProfile("stopkite")
+        val expectedName = "stopkite"
+
+        coEvery { fakeLocalSource.getGithubProfile("stopkite").getOrThrow().userName } returns "stopkite"
 
         // when
-        val actualSearch = fakeLocalSource.getGithubProfile("stopkite")
+        val actualSearch = fakeLocalSource.getGithubProfile("stopkite").getOrThrow().userName
 
         // then
-        assertThat(actualSearch).isEqualTo(expectedSearch)
+        assertThat(actualSearch).isEqualTo(expectedName)
     }
 
     @Test
     fun `로컬에 유저 정보가 없음을 확인할 수 있다`() = runBlocking {
         // given
-        val expectedSearch = fakeLocalSource.getGithubProfile("stopkite")
+        val expectedName = "stopkite"
+
+        coEvery { fakeLocalSource.getGithubProfile("stopkite").getOrThrow().userName } returns "malibin"
 
         // when
-        val actualSearch = fakeLocalSource.getGithubProfile("malibinYun")
+        val actualSearch = fakeLocalSource.getGithubProfile("stopkite").getOrThrow().userName
 
         // then
-        assertThat(actualSearch).isNotEqualTo(expectedSearch)
+        assertThat(actualSearch).isNotEqualTo(expectedName)
     }
 
     @Test
