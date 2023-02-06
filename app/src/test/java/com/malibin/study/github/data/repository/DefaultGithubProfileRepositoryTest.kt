@@ -49,7 +49,7 @@ internal class DefaultGithubProfileRepositoryTest {
         // given
         val expectedName = "stopkite"
 
-        coEvery { fakeLocalSource.getGithubProfile("stopkite").getOrThrow().userName } returns "malibin"
+        coEvery { fakeLocalSource.getGithubProfile("stopkite").getOrThrow().userName } returns ""
 
         // when
         val actualSearch = fakeLocalSource.getGithubProfile("stopkite").getOrThrow().userName
