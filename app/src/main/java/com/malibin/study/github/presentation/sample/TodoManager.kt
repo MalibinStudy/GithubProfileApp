@@ -7,20 +7,20 @@ class TodoManager(
 ) {
     private val currentTodos = mutableListOf<String>()
 
-    fun getTodos(): List<String> {
+    suspend fun getTodos(): List<String> {
         return currentTodos.toList()
     }
 
-    fun getTodoHistories(): List<String> {
+    suspend fun getTodoHistories(): List<String> {
         return todoMemory.getHistory()
     }
 
-    fun createTodo(todo: String) {
+    suspend fun createTodo(todo: String) {
         currentTodos.add(todo)
         todoMemory.create(todo)
     }
 
-    fun finishTodo(todo: String) {
+    suspend fun finishTodo(todo: String) {
         currentTodos.remove(todo)
         todoMemory.finish(todo)
     }
