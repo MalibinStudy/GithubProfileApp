@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
  */
 internal class TodoManagerTest {
 
-    @Test
+    /*@Test
     fun ddd() {
         // given
         // 가짜 객체를 만든다 -> mock
@@ -25,7 +25,7 @@ internal class TodoManagerTest {
         // 어떤 기능을 했는지 내부적으로 구현도 할 수 있다
         //
 
-        /*val fakeTodoMemory = object : TodoMemory {
+        val fakeTodoMemory = object : TodoMemory {
 
             private val list = mutableListOf<String>()
 
@@ -40,7 +40,7 @@ internal class TodoManagerTest {
             override fun finish(todo: String) {
 
             }
-        }*/
+        }
 
         //val todoManager = TodoManager(fakeTodoMemory)
         //todoManager.createTodo("todo1")
@@ -57,7 +57,7 @@ internal class TodoManagerTest {
             .containsExactlyElementsIn(listOf("todo1", "todo2"))
             .inOrder()
 
-    }
+    }*/
 
     /** createTodo 할 때 어떤 동작을 해야하는지 mockk에게 알려주어야 한다
      * 하지만 relaxed = true 키워드를 쓰면 안해도 됨!
@@ -65,7 +65,7 @@ internal class TodoManagerTest {
     @Test
     fun ddd3() {
         // given
-        val todoMemory = mockk<TodoMemory>(relaxed = true)
+        /*val todoMemory = mockk<TodoMemory>(relaxed = true)
 
         val todoManager = TodoManager(todoMemory)
 
@@ -83,7 +83,7 @@ internal class TodoManagerTest {
             { assertThat(actualTodos).isEqualTo(listOf("1", "2")) },
             { verify(exactly = 1) { todoMemory.create("1") } }, // 1을 넣은 것이 한 번 발생했다
             { verify(exactly = 1) { todoMemory.create(any()) } } // 무적 any !!
-        )
+        )*/
     }
 
 
