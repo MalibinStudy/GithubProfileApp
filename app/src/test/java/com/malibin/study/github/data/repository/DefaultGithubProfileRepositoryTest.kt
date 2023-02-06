@@ -5,6 +5,7 @@ import com.malibin.study.github.data.source.GithubProfileSource
 import com.malibin.study.github.domain.profile.GithubProfile
 import com.malibin.study.github.domain.repository.GithubProfileRepository
 import com.malibin.study.github.utils.InstantTaskExecutorExtension
+import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
@@ -73,6 +74,30 @@ internal class DefaultGithubProfileRepositoryTest {
 
         // then
         assertThat(actualLocalProfile).isEqualTo(githubProfile)
+    }
+
+    @Test
+    fun `유저 정보가 없을 때 서버로부터 유저 정보를 받아오는 것을 확인할 수 있다`() = runBlocking {
+        // given
+        val expectedGithubProfile = GithubProfile(
+            0,
+            "stopkite",
+            "https://avatars.githubusercontent.com/u/62979643?v=4",
+            "Ji-Yeon",
+            "1",
+            10,
+            100
+        )
+
+        coEvery {
+            fakeRemoteSource.getGithubProfile("stopkite")
+        } returns runCatching { expectedGithubProfile }
+
+        // when
+        val actualSavedLocalProfile = fakeRemoteSource.getGithubProfile("stopkite").getOrThrow()
+
+        // then
+        assertThat(actualSavedLocalProfile).isEqualTo(expectedGithubProfile)
     }
 
 }
