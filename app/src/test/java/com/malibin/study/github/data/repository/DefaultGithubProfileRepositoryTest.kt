@@ -46,4 +46,27 @@ internal class DefaultGithubProfileRepositoryTest {
         // then
         assertThat(actualSearch).isEqualTo(expectedSearch)
     }
+
+    @Test
+    fun `로컬에 유저 정보가 이미 존재할 때 유저 정보를 반환할 수 있다`() = runBlocking {
+        // given
+        val githubProfile =
+            GithubProfile(
+                0,
+                "stopkite",
+                "https://avatars.githubusercontent.com/u/62979643?v=4",
+                "Ji-Yeon",
+                "1",
+                10,
+                100
+            )
+
+        coEvery { fakeLocalSource.getGithubProfile("stopkite") } returns runCatching { githubProfile }
+
+        // when
+        val actualLocalProfile = fakeLocalSource.getGithubProfile("stopkite").getOrThrow()
+
+        // then
+        assertThat(actualLocalProfile).isEqualTo(githubProfile)
+    }
 }
