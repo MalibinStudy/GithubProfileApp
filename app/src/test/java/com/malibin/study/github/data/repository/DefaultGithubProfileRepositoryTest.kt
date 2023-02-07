@@ -124,19 +124,17 @@ internal class DefaultGithubProfileRepositoryTest {
             )
             defaultGithubProfileRepository.saveGithubProfile(gitHubProfile)
             //then
-            assertAll(
-                {
-                    coVerify(exactly = 1) {
-                        fakeLocalGithubProfileSource.saveGithubProfile(
-                            gitHubProfile
-                        )
-                    }
-                }
-            )
-        }
 
+            coVerify(exactly = 1) {
+                fakeLocalGithubProfileSource.saveGithubProfile(
+                    gitHubProfile
+                )
+            }
+        }
     }
 
 }
+
+
 
 
