@@ -22,15 +22,14 @@ internal class GithubProfileRepositoryTest {
                 1,
                 1
             )
-            coEvery { fakeGithubProfileRepository.getGithubProfile("name") } returns runCatching {
+            coEvery { fakeGithubProfileRepository.getGithubProfile("name") } returns Result.success(
                 gitHubProfile
-            }
+            )
+
             //when
             val actualProfile = fakeGithubProfileRepository.getGithubProfile("name")
             //then
-            assertThat(actualProfile).isEqualTo(runCatching {
-                gitHubProfile
-            })
+            assertThat(actualProfile).isEqualTo(Result.success(gitHubProfile))
         }
     }
 
@@ -52,13 +51,12 @@ internal class GithubProfileRepositoryTest {
                 fakeGithubProfileRepository.saveGithubProfile(
                     gitHubProfile
                 )
-            } returns gitHubProfile.runCatching { }
+            } returns Result.success(Unit)
             //when
             val actualResult =
                 fakeGithubProfileRepository.saveGithubProfile(gitHubProfile)
             //then
-            assertThat(actualResult).isEqualTo(runCatching {
-            })
+            assertThat(actualResult).isEqualTo(Result.success(Unit))
         }
     }
 }
