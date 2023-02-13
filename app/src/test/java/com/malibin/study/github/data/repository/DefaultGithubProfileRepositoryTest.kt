@@ -26,13 +26,13 @@ internal class DefaultGithubProfileRepositoryTest {
             fakeLocalGithubProfileSource, fakeRemoteGithubProfileSource
         )
         gitHubProfile = GithubProfile(
-            1L,
-            "name1",
-            "https://www.linkpicture.com/view.php?img=LPic63df5f35265bb1785508137",
-            "name1",
-            "Hello",
-            1,
-            1
+            id = 1L,
+            userName = "name1",
+            avatarUrl = "https://www.linkpicture.com/view.php?img=LPic63df5f35265bb1785508137",
+            name = "name1",
+            bio = "Hello",
+            followersCount = 1,
+            followingCount = 1
         )
     }
 
