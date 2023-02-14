@@ -26,12 +26,44 @@ class TodoManager(
     }
 }
 
+class TodoManager2(
+    private val todoMemory: TodoMemory2,
+) {
+    private val currentTodos = mutableListOf<String>()
+
+    suspend fun getTodos(): List<String> {
+        return currentTodos.toList()
+    }
+
+    suspend fun getTodoHistories(): List<String> {
+        return todoMemory.getHistory()
+    }
+
+    suspend fun createTodo(todo: String) {
+        currentTodos.add(todo)
+        todoMemory.create(todo)
+    }
+
+    suspend fun finishTodo(todo: String) {
+        currentTodos.remove(todo)
+        todoMemory.finish(todo)
+    }
+}
+
 interface TodoMemory {
     fun getHistory(): List<String>
 
     fun create(todo: String)
 
     fun finish(todo: String)
+}
+
+interface TodoMemory2 {
+    suspend fun getHistory(): List<String>
+
+    suspend fun create(todo: String)
+
+    suspend fun finish(todo: String)
 }
 
 class TodoMemoryImpl(context: Context) : TodoMemory {
