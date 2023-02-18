@@ -9,11 +9,11 @@ import org.junit.jupiter.api.extension.RegisterExtension
 internal class MainViewModelTest {
 
     companion object {
-        @JvmField
+        @JvmStatic
         @RegisterExtension
         val instantTaskExecutorExtension = InstantTaskExecutorExtension()
 
-        @JvmField
+        @JvmStatic
         @RegisterExtension
         val coroutineExtension = MainCoroutineExtension()
     }
