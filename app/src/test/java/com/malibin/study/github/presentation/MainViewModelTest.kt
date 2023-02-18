@@ -7,13 +7,11 @@ import com.malibin.study.github.utils.InstantTaskExecutorExtension
 import com.malibin.study.github.utils.MainCoroutineExtension
 import com.malibin.study.github.utils.getOrAwaitValue
 import io.mockk.*
-import io.mockk.InternalPlatformDsl.toStr
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
-import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.extension.RegisterExtension
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -42,35 +40,43 @@ internal class MainViewModelTest {
     fun `loadGithubProfile 메소드 호출 성공 시 GithubProfile을 가져온다`() = runBlocking {
         //given
         val expectedGithubProfile = GithubProfile(
-                id = 1L,
-                userName = "name1",
-                avatarUrl = "https://www.linkpicture.com/view.php?img=LPic63df5f35265bb1785508137",
-                name = "name1",
-                bio = "Hello",
-                followersCount = 1,
-                followingCount = 1
-            )
-
-        //when
+            id = 1L,
+            userName = "name1",
+            avatarUrl = "https://www.linkpicture.com/view.php?img=LPic63df5f35265bb1785508137",
+            name = "name1",
+            bio = "Hello",
+            followersCount = 1,
+            followingCount = 1
+        )
         coEvery {
             fakeProfileRepository.getGithubProfile(any())
         } returns Result.success(expectedGithubProfile)
+
+        //when
         fakeMainViewModel.loadGithubProfile()
 
-            //then
+        //then
         assertAll(
-            { coVerify(exactly = 1) { fakeProfileRepository.getGithubProfile(any())}},
-            { assertThat(fakeMainViewModel.githubProfile.getOrAwaitValue()).isEqualTo(expectedGithubProfile)}
+            { coVerify(exactly = 1) { fakeProfileRepository.getGithubProfile(any()) } },
+            {
+                assertThat(fakeMainViewModel.githubProfile.getOrAwaitValue()).isEqualTo(
+                    expectedGithubProfile
+                )
+            }
         )
     }
+
     @Test
-    fun `loadGithubProfile 메소드 호출 실패 시 isError의 value 가 True가 된다`(){
+    fun `loadGithubProfile 메소드 호출 실패 시 isError의 value 가 True가 된다`() {
+        //given
         coEvery {
             fakeProfileRepository.getGithubProfile(any())
         } returns Result.failure(IllegalArgumentException())
+        //when
         fakeMainViewModel.loadGithubProfile()
+        //then
         assertAll(
-            { coVerify(exactly = 1) { fakeProfileRepository.getGithubProfile(any())}},
+            { coVerify(exactly = 1) { fakeProfileRepository.getGithubProfile(any()) } },
             { assertThat(fakeMainViewModel.isError.getOrAwaitValue()).isTrue() }
         )
     }
