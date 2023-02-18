@@ -11,7 +11,6 @@ import io.mockk.coVerify
 import io.mockk.coVerifySequence
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.junit5.MockKExtension
-import io.mockk.slot
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.*
@@ -73,7 +72,9 @@ internal class DefaultGithubProfileRepositoryTest {
             followersCount = 11,
             followingCount = 12
         )
-        coEvery { githubProfileRepository.getGithubProfile(userName) } returns Result.success(
+        coEvery {
+            githubProfileRepository.getGithubProfile(userName)
+        } returns Result.success(
             expectedProfile
         )
         // when
@@ -81,8 +82,8 @@ internal class DefaultGithubProfileRepositoryTest {
         // then
         assertAll(
             { coVerify(exactly = 1) { localGithubProfileSource.getGithubProfile(userName) } },
-            { coVerify(exactly = 0) { remoteGithubProfileSource.getGithubProfile(userName) } },
-            { assertThat(actualResult.isSuccess).isTrue() }
+            { coVerify(exactly = 0) { remoteGithubProfileSource.getGithubProfile(any()) } },
+            { assertThat(actualResult.getOrNull()).isEqualTo(expectedProfile) }
         )
     }
 
@@ -100,14 +101,19 @@ internal class DefaultGithubProfileRepositoryTest {
             followersCount = 11,
             followingCount = 12
         )
-        val expectedSlot = slot<GithubProfile>() // CapturingSlot 또는 MutableList로 인수를 캡처 할 수 있다.
-        coEvery { localGithubProfileSource.getGithubProfile(userName) } returns Result.failure(
+        coEvery {
+            localGithubProfileSource.getGithubProfile(userName)
+        } returns Result.failure(
             expectedException
         )
-        coEvery { remoteGithubProfileSource.getGithubProfile(userName) } returns Result.success(
+        coEvery {
+            remoteGithubProfileSource.getGithubProfile(userName)
+        } returns Result.success(
             expectedProfile
         )
-        coEvery { localGithubProfileSource.saveGithubProfile(capture(expectedSlot)) } answers {
+        coEvery {
+            localGithubProfileSource.saveGithubProfile(expectedProfile)
+        } answers {
             Result.success(
                 Unit
             )
@@ -125,7 +131,6 @@ internal class DefaultGithubProfileRepositoryTest {
                     localGithubProfileSource.saveGithubProfile(expectedProfile)
                 }
             },
-            { assertThat(expectedSlot.captured).isEqualTo(expectedProfile) },
             { assertThat(actualResult.getOrNull()).isEqualTo(expectedProfile) },
             { assertThat(actualResult.isSuccess).isTrue() }
         )
