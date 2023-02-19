@@ -93,7 +93,7 @@ internal class DefaultGithubProfileRepositoryTest {
         val actualResult = defaultGithubProfileRepository.getGithubProfile("name1")
         //then
         assertAll(
-            { assertThat(actualResult).isEqualTo(Result.success(gitHubProfile))},
+            { assertThat(actualResult.getOrNull()).isEqualTo(gitHubProfile)},
             { coVerify(exactly = 1) { fakeLocalGithubProfileSource.getGithubProfile("name1") } }
         )
     }
