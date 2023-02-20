@@ -1,24 +1,23 @@
 package com.malibin.study.github
 
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.ext.junit.runners.AndroidJUnit4
-
+import com.google.common.truth.Truth.assertThat
 import org.junit.Test
-import org.junit.runner.RunWith
-
-import org.junit.Assert.*
 
 /**
  * Instrumented test, which will execute on an Android device.
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-@RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
     @Test
-    fun useAppContext() {
-        // Context of the app under test.
+    fun `application_context로_패키지_이름을_반환할_수_있다`() {
+        // given
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.malibin.study.github", appContext.packageName)
+        val expectedPackageName = "com.malibin.study.github"
+        // when
+        val actualPackageName = appContext.packageName
+        // then
+        assertThat(actualPackageName).isEqualTo(expectedPackageName)
     }
 }
