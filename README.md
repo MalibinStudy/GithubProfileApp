@@ -12,3 +12,6 @@
 ## 🎲  2단계
 1. loadGithubProfile 메소드 호출 성공 시 GithubProfile을 가져온다.
 2. loadGithubProfile 메소드 호출 실패 시 isError의 value 가 True가 된다.
+
+## 🎲  3단계
+1. 올바른 패키지 명을 반환한다.
