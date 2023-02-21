@@ -13,3 +13,7 @@
 # Week3
 ## Step 3 - 1 : ExampleInstrumentedTest class의 테스트를 Junit5, Truth를 활용해서 변경한다.
 - [x] : application Context로 패키지 이름을 가져올 수 있다
+## Step 3 - 2 : GithubService Unit Test
+- [x] : userName에 해당하는 사람의 깃허브 프로필 정보를 불러올 수 있다
+- [x] : userName에 해당하는 사람이 없으면 404 Error가 뜬다
+- [x] : token 만료 시 401 Error가 뜬다
