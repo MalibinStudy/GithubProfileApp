@@ -10,9 +10,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.extension.ExtendWith
 import retrofit2.Retrofit
@@ -20,14 +19,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import java.io.File
 
-@TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
 @OptIn(ExperimentalCoroutinesApi::class)
 @ExtendWith(MockKExtension::class)
 internal class GithubServiceTest {
     private lateinit var mockWebServer: MockWebServer
     private lateinit var githubService: GithubService
 
-    @BeforeAll
+    @BeforeEach
     fun setUp() {
         mockWebServer = MockWebServer()
         githubService = Retrofit.Builder()
